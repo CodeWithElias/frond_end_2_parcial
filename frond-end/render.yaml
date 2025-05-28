@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: frond-end-ssr
+    env: node
+    buildCommand: npm run build:ssr
+    startCommand: npm run serve:ssr
+    envVars:
+      - key: PORT
+        fromService: true
+    plan: free
