@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/server",
     "target": "ES2022",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
