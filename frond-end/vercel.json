@@ -2,22 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
+      "src": "dist/frond-end/browser/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "dist/frond-end/server/main.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/frond-end/server/server.mjs"
+      "dest": "dist/frond-end/server/main.js"
     }
-  ],
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    },
-    "commands": {
-      "build": "npm run build:ssr"
-    }
-  }
+  ]
 }
