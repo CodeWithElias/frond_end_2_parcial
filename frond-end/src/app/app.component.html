@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="navbar-brand">school</div>
+  <ul class="navbar-menu">
+    <li class="navbar-item"><a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Login</a></li>
+    <li class="navbar-item"><a routerLink="/register" routerLinkActive="active">Registrar</a></li>
+    <li class="navbar-item"><a routerLink="/dashboard" routerLinkActive="active">Panel</a></li>
+    <li class="navbar-item"><a routerLink="/attendance" routerLinkActive="active">Asistencia</a></li>
+    <li class="navbar-item"><a routerLink="/students" routerLinkActive="active">Alumnos</a></li>
+    <li class="navbar-item"><a routerLink="/teachers" routerLinkActive="active">Docentes</a></li>
+    <li class="navbar-item"><a routerLink="/subjects" routerLinkActive="active">Materias</a></li>
+    <li class="navbar-item"><a routerLink="/grades" routerLinkActive="active">Notas</a></li>
+    <li class="navbar-item"><a routerLink="/reports" routerLinkActive="active">Reportes</a></li>
+    <li class="navbar-item"><a routerLink="/predictions" routerLinkActive="active">Predicciones</a></li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>
