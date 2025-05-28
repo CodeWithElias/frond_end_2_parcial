@@ -6,14 +6,14 @@
       "use": "@vercel/static"
     },
     {
-      "src": "dist/frond-end/server/main.js",
+      "src": "dist/frond-end/server/server.mjs",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/frond-end/server/main.js"
+      "dest": "dist/frond-end/server/server.mjs"
     }
   ]
 }
