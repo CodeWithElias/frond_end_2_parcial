@@ -2,6 +2,7 @@ services:
   - type: web
     name: frond-end
     env: static
+    buildCommand: npm run build
     staticPublishPath: dist/frond-end
     routes:
       - type: rewrite
