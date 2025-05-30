@@ -4,10 +4,10 @@
     <button class="menu-toggle" aria-label="Toggle menu" (click)="toggleMenu()">&#9776;</button>
     <ul class="navbar-menu" [class.open]="menuOpen">
       <li class="navbar-item">
-        <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()" class="navbar-link">Login</a>
+        <a routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link">Login</a>
       </li>
       <li class="navbar-item">
-        <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()" class="navbar-link">Perfil de Usuario</a>
+        <a routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link">Perfil de Usuario</a>
       </li>
     </ul>
   </div>

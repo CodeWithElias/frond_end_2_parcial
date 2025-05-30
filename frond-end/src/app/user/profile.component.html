@@ -1,0 +1,10 @@
+<h2>Perfil de Usuario</h2>
+<div *ngIf="usuario; else noUser" class="profile-container">
+  <div class="profile-item"><strong>ID:</strong> {{ usuario.id }}</div>
+  <div class="profile-item"><strong>Usuario:</strong> {{ usuario.username }}</div>
+  <div class="profile-item"><strong>Correo:</strong> {{ usuario.correo }}</div>
+  <div class="profile-item"><strong>Rol:</strong> {{ usuario.rol }}</div>
+</div>
+<ng-template #noUser>
+  <p>No hay usuario autenticado.</p>
+</ng-template>
