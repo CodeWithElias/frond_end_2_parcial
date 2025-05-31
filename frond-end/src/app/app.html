@@ -1,21 +1,26 @@
 <nav class="navbar">
   <div class="navbar-container">
+    <button class="profile-icon-button" aria-label="Perfil de Usuario" (click)="openProfileModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#ecf0f1" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    </button>
     <a class="navbar-brand" routerLink="/" (click)="closeMenu()">Mi Aplicación</a>
     <button class="menu-toggle" aria-label="Toggle menu" (click)="toggleMenu()">&#9776;</button>
     <ul class="navbar-menu" [class.open]="menuOpen">
       <li class="navbar-item">
         <a routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link">Login</a>
       </li>
-      <li class="navbar-item">
-        <a routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link">Perfil de Usuario</a>
-      </li>
     </ul>
   </div>
 </nav>
 
+<app-profile-modal *ngIf="profileModalOpen" [isOpen]="profileModalOpen" (close)="closeProfileModal()"></app-profile-modal>
+
 <router-outlet></router-outlet>
 
 <style>
+  .profile-icon-button{
+    background-color: #2c3e50;
+  }
   .navbar {
     background-color: #2c3e50;
     color: #ecf0f1;

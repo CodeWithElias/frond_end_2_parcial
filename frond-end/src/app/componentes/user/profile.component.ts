@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService, Usuario } from './user.service';
+import { Usuario, UserService } from './autenticacion';
 
 @Component({
   selector: 'app-profile',

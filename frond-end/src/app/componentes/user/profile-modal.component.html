@@ -1,0 +1,16 @@
+<div *ngIf="isOpen" class="modal-background" (click)="onBackgroundClick($event)">
+  <div class="modal-content">
+    <button class="close-button" (click)="closeModal()">×</button>
+    <h2>Perfil</h2>
+      <div *ngIf="usuario; else noUser" class="profile-container">
+        <div class="profile-item"><strong>ID:</strong> {{ usuario.id }}</div>
+        <div class="profile-item"><strong>Usuario:</strong> {{ usuario.username }}</div>
+        <div class="profile-item"><strong>Correo:</strong> {{ usuario.correo }}</div>
+        <div class="profile-item"><strong>Rol:</strong> {{ usuario.rol }}</div>
+      </div>
+      <ng-template #noUser>
+        <p>No hay usuario autenticado.</p>
+      </ng-template>
+    <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+  </div>
+</div>

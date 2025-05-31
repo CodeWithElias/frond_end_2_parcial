@@ -1,0 +1,47 @@
+.modal-background {
+  position: fixed;
+  top: 3rem; /* Ajustar para que quede debajo del icono */
+  left: 1rem; /* Ajustar para que quede alineado a la izquierda */
+  width: auto;
+  height: auto;
+  background-color: transparent; /* Sin fondo oscuro */
+  display: block;
+  z-index: 10000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  position: absolute;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.logout-button {
+  margin-top: 1rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}

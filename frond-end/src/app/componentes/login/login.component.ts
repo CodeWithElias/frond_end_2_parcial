@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiService, LoginResponse } from './api.service';
-import { UserService } from './user.service';
 import { Router } from '@angular/router';
 import { Inject } from '@angular/core';
+import { ApiService, LoginResponse } from '@app/servicio/api.service';
+import { UserService } from '../user/autenticacion';
 
 @Component({
   selector: 'app-login',
