@@ -1,0 +1,24 @@
+<h3>Vista Cursos</h3>
+<div *ngIf="cursos.length > 0; else noCursos">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Paralelo</th>
+        <th>Grado</th>
+        <th>Gestión</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let curso of cursos">
+        <td>{{ curso.id }}</td>
+        <td>{{ curso.paralelo }}</td>
+        <td>{{ curso.grado }}</td>
+        <td>{{ curso.gestion }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noCursos>
+  <p>No hay cursos disponibles.</p>
+</ng-template>

@@ -1,0 +1,32 @@
+<h3>Vista Estudiantes</h3>
+<div *ngIf="estudiantes.length > 0; else noEstudiantes">
+  <table>
+    <thead>
+      <tr>
+        <th>RUDE</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>CI</th>
+        <th>Género</th>
+        <th>Fecha Nacimiento</th>
+        <th>Teléfono</th>
+        <th>Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estudiante of estudiantes">
+        <td>{{ estudiante.rude }}</td>
+        <td>{{ estudiante.persona.nombres }}</td>
+        <td>{{ estudiante.persona.apellidos }}</td>
+        <td>{{ estudiante.persona.ci }}</td>
+        <td>{{ estudiante.persona.genero }}</td>
+        <td>{{ estudiante.persona.fecha_nacimiento }}</td>
+        <td>{{ estudiante.persona.telefono }}</td>
+        <td>{{ estudiante.persona.usuario.correo }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noEstudiantes>
+  <p>No hay estudiantes disponibles.</p>
+</ng-template>

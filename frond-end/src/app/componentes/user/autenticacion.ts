@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Usuario {
   id: number;
@@ -11,28 +12,30 @@ export interface Usuario {
   providedIn: 'root',
 })
 export class UserService {
-  private usuario: Usuario | null = null;
+  private usuarioSubject: BehaviorSubject<Usuario | null>;
   private storageKey = 'usuario';
 
+  constructor() {
+    const storedUser = localStorage.getItem(this.storageKey);
+    const usuario = storedUser ? JSON.parse(storedUser) : null;
+    this.usuarioSubject = new BehaviorSubject<Usuario | null>(usuario);
+  }
+
   setUsuario(usuario: Usuario): void {
-    this.usuario = usuario;
+    this.usuarioSubject.next(usuario);
     localStorage.setItem(this.storageKey, JSON.stringify(usuario));
   }
 
   getUsuario(): Usuario | null {
-    if (this.usuario) {
-      return this.usuario;
-    }
-    const storedUser = localStorage.getItem(this.storageKey);
-    if (storedUser) {
-      this.usuario = JSON.parse(storedUser);
-      return this.usuario;
-    }
-    return null;
+    return this.usuarioSubject.value;
   }
 
   clearUsuario(): void {
-    this.usuario = null;
+    this.usuarioSubject.next(null);
     localStorage.removeItem(this.storageKey);
+  }
+
+  getUsuarioObservable(): Observable<Usuario | null> {
+    return this.usuarioSubject.asObservable();
   }
 }

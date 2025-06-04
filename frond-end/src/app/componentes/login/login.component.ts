@@ -37,7 +37,7 @@ export class LoginComponent {
       next: (response: LoginResponse) => {
         this.mensaje = response.mensaje;
         this.userService.setUsuario(response.usuario);
-        this.router.navigate(['/profile']);
+        this.router.navigate(['profile']);
       },
       error: (err: any) => {
         this.error = 'Error en el inicio de sesión. Verifica tus credenciales.';

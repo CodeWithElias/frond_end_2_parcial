@@ -1,0 +1,28 @@
+<h3>Vista Horarios</h3>
+<div *ngIf="horarios.length > 0; else noHorarios">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Día Semana</th>
+        <th>Hora Inicio</th>
+        <th>Hora Fin</th>
+        <th>Aula</th>
+        <th>Curso Materia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let horario of horarios">
+        <td>{{ horario.id }}</td>
+        <td>{{ horario.dia_semana }}</td>
+        <td>{{ horario.hora_inicio }}</td>
+        <td>{{ horario.hora_fin }}</td>
+        <td>{{ horario.aula }}</td>
+        <td>{{ horario.curso_materia }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noHorarios>
+  <p>No hay horarios disponibles.</p>
+</ng-template>

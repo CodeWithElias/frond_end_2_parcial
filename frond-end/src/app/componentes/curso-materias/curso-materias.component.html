@@ -1,0 +1,26 @@
+<h3>Vista Curso-Materias</h3>
+<div *ngIf="cursoMaterias.length > 0; else noCursoMaterias">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Curso</th>
+        <th>Materia</th>
+        <th>Docente</th>
+        <th>Bimestre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cursoMaterias">
+        <td>{{ item.id }}</td>
+        <td>{{ item.curso }}</td>
+        <td>{{ item.materia }}</td>
+        <td>{{ item.docente }}</td>
+        <td>{{ item.bimestre }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noCursoMaterias>
+  <p>No hay datos disponibles.</p>
+</ng-template>

@@ -1,0 +1,26 @@
+<h3>Vista Inscripciones</h3>
+<div *ngIf="inscripciones.length > 0; else noInscripciones">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha Inscripción</th>
+        <th>Estudiante</th>
+        <th>Curso</th>
+        <th>Gestión</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let inscripcion of inscripciones">
+        <td>{{ inscripcion.id }}</td>
+        <td>{{ inscripcion.fecha_inscripcion }}</td>
+        <td>{{ inscripcion.estudiante }}</td>
+        <td>{{ inscripcion.curso }}</td>
+        <td>{{ inscripcion.gestion }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noInscripciones>
+  <p>No hay inscripciones disponibles.</p>
+</ng-template>

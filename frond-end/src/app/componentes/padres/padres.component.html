@@ -1,0 +1,30 @@
+<h3>Vista Padres</h3>
+<div *ngIf="padres.length > 0; else noPadres">
+  <table>
+    <thead>
+      <tr>
+        <th>CI</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Género</th>
+        <th>Fecha Nacimiento</th>
+        <th>Teléfono</th>
+        <th>Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let padre of padres">
+        <td>{{ padre.persona.ci }}</td>
+        <td>{{ padre.persona.nombres }}</td>
+        <td>{{ padre.persona.apellidos }}</td>
+        <td>{{ padre.persona.genero }}</td>
+        <td>{{ padre.persona.fecha_nacimiento }}</td>
+        <td>{{ padre.persona.telefono }}</td>
+        <td>{{ padre.persona.usuario.correo }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noPadres>
+  <p>No hay padres disponibles.</p>
+</ng-template>
