@@ -17,8 +17,8 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class ApiService {
-  //private baseUrl = 'http://localhost:8000';
-  private baseUrl = 'https://backendparcial2si2-production.up.railway.app'
+  private baseUrl = 'http://localhost:8000';
+  //private baseUrl = 'https://backendparcial2si2-production.up.railway.app'
 
   constructor(private http: HttpClient) {}
 
@@ -97,22 +97,22 @@ export class ApiService {
   }
 
   getDocentes(): Observable<Docente[]> {
-    const url = `${this.baseUrl}/user/docentes`;
+    const url = `${this.baseUrl}/user/docentes/`;
     return this.http.get<Docente[]>(url);
   }
 
   getEstudiantes(): Observable<Estudiante[]> {
-    const url = `${this.baseUrl}/user/estudiantes`;
+    const url = `${this.baseUrl}/user/estudiantes/`;
     return this.http.get<Estudiante[]>(url);
   }
 
   getPadres(): Observable<Padre[]> {
-    const url = `${this.baseUrl}/user/padres`;
+    const url = `${this.baseUrl}/user/padres/`;
     return this.http.get<Padre[]>(url);
   }
 
   getCursos(): Observable<any[]> {
-    const url = `${this.baseUrl}/inscripcion/cursos`;
+    const url = `${this.baseUrl}/inscripcion/cursos/`;
     return this.http.get<any[]>(url);
   }
 
