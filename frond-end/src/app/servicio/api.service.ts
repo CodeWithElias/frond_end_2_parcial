@@ -18,7 +18,7 @@ export interface LoginResponse {
 })
 export class ApiService {
   //private baseUrl = 'http://localhost:8000';
-  private baseUrl = 'backendparcial2si2-production.up.railway.app'
+  private baseUrl = 'https://backendparcial2si2-production.up.railway.app'
 
   constructor(private http: HttpClient) {}
 
