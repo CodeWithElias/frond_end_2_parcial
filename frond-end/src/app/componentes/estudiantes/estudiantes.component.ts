@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../servicio/api.service';
 import { Estudiante } from '../../modelo/model';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { RegistrarAsistenciaCalificacionParticipacionModalComponent } from '../asistencia-calificacion/registrar-asistencia-calificacion-participacion-modal.component';
 
 @Component({
   selector: 'app-estudiantes',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RegistrarAsistenciaCalificacionParticipacionModalComponent],
   templateUrl: './estudiantes.component.html',
   styleUrls: ['./estudiantes.component.css']
 })
@@ -15,27 +17,51 @@ export class EstudiantesComponent implements OnInit {
   estudiantes: Estudiante[] = [];
   mostrarModal: boolean = false;
   estudianteSeleccionado: Estudiante | null = null;
+  cursoId: number | null = null;
+  docenteId: number | null = null;
+  curso: string = '';
+  materia: string = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.cargarEstudiantes();
-  }
-
-  cargarEstudiantes() {
-    this.apiService.getEstudiantes().subscribe({
-      next: (data) => {
-        console.log('Datos recibidos de estudiantes:', data);
-        this.estudiantes = data;
-      },
-      error: (err) => {
-        console.error('Error al obtener estudiantes:', err);
-      }
+    this.route.queryParams.subscribe(params => {
+      this.cursoId = params['cursoId'] ? +params['cursoId'] : null;
+      this.docenteId = params['docenteId'] ? +params['docenteId'] : null;
+      this.curso = params['curso'] ? params['curso'].toString() : '';
+      this.materia = params['materia'] ? params['materia'].toString() : '';
+      this.cargarEstudiantes();
     });
   }
 
-  abrirModalEditar(estudiante: Estudiante) {
-    this.estudianteSeleccionado = JSON.parse(JSON.stringify(estudiante)); // Clonar objeto para evitar cambios directos
+  cargarEstudiantes() {
+    if (this.cursoId !== null && this.docenteId !== null) {
+      this.apiService.getEstudiantesPorCursoDocente(this.cursoId, this.docenteId).subscribe({
+        next: (data) => {
+          console.log('Datos recibidos de estudiantes por curso y docente:', data);
+          this.estudiantes = data;
+        },
+        error: (err) => {
+          console.error('Error al obtener estudiantes por curso y docente:', err);
+        }
+      });
+    } else {
+      this.apiService.getEstudiantes().subscribe({
+        next: (data) => {
+          console.log('Datos recibidos de estudiantes:', data);
+          this.estudiantes = data;
+        },
+        error: (err) => {
+          console.error('Error al obtener estudiantes:', err);
+        }
+      });
+    }
+  }
+
+  abrirModalRegistrar(estudiante: Estudiante) {
+    this.estudianteSeleccionado = estudiante;
+    // No modificar curso y materia aquí, ya vienen asignados correctamente
+    console.log('abrirModalRegistrar - curso:', this.curso, 'materia:', this.materia);
     this.mostrarModal = true;
   }
 

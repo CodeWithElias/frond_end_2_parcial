@@ -21,8 +21,8 @@ export class HijosComponent implements OnInit {
 
   ngOnInit(): void {
     const usuario = this.userService.getUsuario();
-    if (usuario) {
-      this.padreId = 201;
+    if (usuario && usuario.id) {
+      this.padreId = usuario.id; // Usar el id del usuario autenticado como padreId
       this.apiService.getHijosDePadre(this.padreId).subscribe(
         (data) => {
           console.log('Datos recibidos de la API:', data);

@@ -1,0 +1,74 @@
+<div class="modal" *ngIf="visible">
+  <div class="modal-content">
+    <h2>Registrar Asistencia, Calificación y Participación</h2>
+    <button class="close-button" (click)="cerrar()">×</button>
+
+    <div *ngIf="estudiante">
+      <p><strong>Estudiante:</strong> {{ estudiante.persona.nombres }} {{ estudiante.persona.apellidos }}</p>
+      <p><strong>Curso:</strong> {{ curso }}</p>
+      <p><strong>Materia:</strong> {{ materia }}</p>
+
+      <div class="tabs">
+        <button [class.active]="activeTab === 'asistencia'" (click)="setTab('asistencia')">Asistencia</button>
+        <button [class.active]="activeTab === 'calificacion'" (click)="setTab('calificacion')">Calificación</button>
+        <button [class.active]="activeTab === 'participacion'" (click)="setTab('participacion')">Participación</button>
+      </div>
+
+      <div *ngIf="activeTab === 'asistencia'">
+        <form (ngSubmit)="registrarAsistencia()">
+          <label for="fechaAsistencia">Fecha:</label>
+          <input id="fechaAsistencia" type="date" [(ngModel)]="fechaAsistencia" name="fechaAsistencia" required />
+
+          <label for="estadoAsistencia">Estado:</label>
+          <select id="estadoAsistencia" [(ngModel)]="estadoAsistencia" name="estadoAsistencia" required>
+            <option value="">Seleccione</option>
+            <option value="presente">Presente</option>
+            <option value="ausente">Ausente</option>
+            <option value="tardanza">Tardanza</option>
+            <option value="justificado">Justificado</option>
+          </select>
+
+          <label for="bimestreId">Bimestre:</label>
+          <input id="bimestreId" type="number" [(ngModel)]="bimestreId" name="bimestreId" required />
+
+          <label for="justificacion">Justificación:</label>
+          <textarea id="justificacion" [(ngModel)]="justificacion" name="justificacion"></textarea>
+
+          <button type="submit">Registrar Asistencia</button>
+        </form>
+      </div>
+
+      <div *ngIf="activeTab === 'calificacion'">
+        <form (ngSubmit)="registrarCalificacion()">
+          <label for="calificacion">Calificación:</label>
+          <input id="calificacion" type="number" [(ngModel)]="calificacion" name="calificacion" min="0" max="100" required />
+
+          <label for="bimestreCalificacion">Bimestre:</label>
+          <input id="bimestreCalificacion" type="number" [(ngModel)]="bimestreId" name="bimestreCalificacion" min="1" required />
+
+          <label for="observacionCalificacion">Observación:</label>
+          <textarea id="observacionCalificacion" [(ngModel)]="observacionCalificacion" name="observacionCalificacion"></textarea>
+
+          <button type="submit">Registrar Calificación</button>
+        </form>
+      </div>
+
+      <div *ngIf="activeTab === 'participacion'">
+        <form (ngSubmit)="registrarParticipacion()">
+          <label for="observacionParticipacion">Observación:</label>
+          <textarea id="observacionParticipacion" [(ngModel)]="observacionParticipacion" name="observacionParticipacion" required></textarea>
+
+          <label for="notaParticipacion">Nota:</label>
+          <input id="notaParticipacion" type="number" [(ngModel)]="calificacion" name="notaParticipacion" min="0" max="100" step="0.1" required />
+
+          <label for="bimestreParticipacion">Bimestre:</label>
+          <input id="bimestreParticipacion" type="number" [(ngModel)]="bimestreId" name="bimestreParticipacion" min="1" required />
+
+          <button type="submit">Registrar Participación</button>
+        </form>
+      </div>
+
+      <p *ngIf="mensaje">{{ mensaje }}</p>
+    </div>
+  </div>
+</div>

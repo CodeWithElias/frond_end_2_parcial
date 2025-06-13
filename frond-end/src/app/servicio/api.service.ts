@@ -17,7 +17,8 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:8000';
+  //private baseUrl = 'http://localhost:8000';
+  private baseUrl = 'backendparcial2si2-production.up.railway.app'
 
   constructor(private http: HttpClient) {}
 
@@ -26,6 +27,49 @@ export class ApiService {
     const body = { username, password };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<LoginResponse>(url, body, { headers });
+  }
+
+  getCursosDocente(docenteId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/api/docente/mis-cursos/?docente_id=${docenteId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  getEstudiantesPorCursoDocente(cursoId: number, docenteId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/api/docente/cursos/${cursoId}/estudiantes/?docente_id=${docenteId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  registrarAsistencia(data: any): Observable<any> {
+    const url = `${this.baseUrl}/evaluacion/asistencias/`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(url, data, { headers });
+  }
+
+  getAsistencias(): Observable<any[]> {
+    const url = `${this.baseUrl}/evaluacion/asistencias/`;
+    return this.http.get<any[]>(url);
+  }
+
+  registrarCalificacion(data: any): Observable<any> {
+    const url = `${this.baseUrl}/evaluacion/calificaciones/`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(url, data, { headers });
+  }
+
+  getCalificaciones(): Observable<any[]> {
+    const url = `${this.baseUrl}/evaluacion/calificaciones/`;
+    return this.http.get<any[]>(url);
+  }
+
+  registrarParticipacion(data: any): Observable<any> {
+    const url = `${this.baseUrl}/evaluacion/participaciones/`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(url, data, { headers });
+  }
+
+  getParticipaciones(): Observable<any[]> {
+    const url = `${this.baseUrl}/evaluacion/participaciones/`;
+    return this.http.get<any[]>(url);
   }
 
   registrarPersona(persona: any): Observable<any> {
@@ -253,7 +297,7 @@ export class ApiService {
   }
 
   getHijosDePadre(padreId: number): Observable<Estudiante[]> {
-    const url = `${this.baseUrl}/user/padre/${padreId}/hijos/`;
+    const url = `${this.baseUrl}/api/padre/mis-hijos/?padre_id=${padreId}`;
     return this.http.get<Estudiante[]>(url);
   }
 
@@ -262,4 +306,29 @@ export class ApiService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(url, relacion, { headers });
   }
+
+  getNotasDeHijo(hijoId: number, padreId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/api/padre/hijos/${hijoId}/notas/?padre_id=${padreId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  getNotasEstudiante(estudianteId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/api/estudiante/mis-notas/?estudiante_id=${estudianteId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  getAsistenciaEstudiante(estudianteId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/api/estudiante/mi-asistencia/?estudiante_id=${estudianteId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  getParticipacionEstudiante(estudianteId: number): Observable<any[]> {
+    const url = `${this.baseUrl}/api/estudiante/mi-participacion/?estudiante_id=${estudianteId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  getPrediccionesEstudiante(estudianteId: number): Observable<any> {
+  const url = `${this.baseUrl}/api/ia/rendimiento/por_estudiante/?estudiante_id=${estudianteId}`;
+  return this.http.get<any>(url);
+}
 }

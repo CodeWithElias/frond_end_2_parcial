@@ -13,7 +13,7 @@ class AuthService {
 
   User? get currentUser => _currentUser;
 
-  // Use 10.0.2.2 to access host machine localhost from Android emulator
+  // usar 10.0.2.2 para acceder a la maquina  localhost para el emulador de android
   final String baseUrl = 'http://192.168.1.11:8000';
 
   Future<bool> login(String username, String password) async {

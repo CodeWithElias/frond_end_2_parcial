@@ -30,7 +30,7 @@
         <button *ngIf="usuario?.rol === 'admin'" routerLink="materias" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">📝</span> Materias
         </button>
-        <button *ngIf="usuario?.rol === 'admin' || usuario?.rol === 'estudiante'" routerLink="inscripciones" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+        <button *ngIf="usuario?.rol === 'admin'" routerLink="inscripciones" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">📝</span> Inscripciones
         </button>
         <button *ngIf="usuario?.rol === 'admin'" routerLink="curso-materias" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
@@ -48,6 +48,9 @@
         <button *ngIf="usuario?.rol === 'padre'" routerLink="hijos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">👦👧</span> Hijos
         </button>
+        <button *ngIf="usuario?.rol === 'docente'" routerLink="curso-docente" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">📚</span> Mis Cursos
+        </button>
         <button *ngIf="usuario?.rol === 'admin'" routerLink="registro" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">📝</span> Registro
         </button>
@@ -59,6 +62,9 @@
         </button>
         <button *ngIf="usuario?.rol === 'admin'" routerLink="bimestres" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">👨‍👩‍👧‍👦</span> Bimestres
+        </button>
+        <button *ngIf="usuario?.rol === 'estudiante'" routerLink="notas-estudiante" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">📋</span> Mis Notas
         </button>
       </ng-container>
 

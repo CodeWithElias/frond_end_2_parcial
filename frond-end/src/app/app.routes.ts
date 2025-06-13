@@ -20,6 +20,8 @@ import { CursoMateriasComponent } from './componentes/curso-materias/curso-mater
 import { HorariosComponent } from './componentes/horarios/horarios.component';
 import { NivelesComponent } from './componentes/niveles/niveles.component';
 import { RegistroTutorComponent } from './componentes/registro/registro-tutor.component';
+import { CursoDocenteComponent } from './componentes/cursos/curso-docente.component';
+import { NotasEstudianteComponent } from './componentes/notas-estudiante/notas-estudiante.component';
 
 export const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
@@ -37,6 +39,8 @@ export const routes: Routes = [
   { path: 'estudiantes', component: EstudiantesComponent },
   { path: 'materias', component: MateriasComponent },
   { path: 'cursos', component: CursosComponent },
+  { path: 'curso-docente', component: CursoDocenteComponent },
+  { path: 'notas-estudiante', component: NotasEstudianteComponent },
   { path: 'inscripciones', component: InscripcionesComponent },
   { path: 'curso-materias', component: CursoMateriasComponent },
   { path: 'horarios', component: HorariosComponent },

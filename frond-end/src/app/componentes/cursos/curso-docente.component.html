@@ -1,0 +1,17 @@
+<h2>Cursos del Docente</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre Curso</th>
+      <th>Nombre Materia</th>
+      <th>Gestión</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let curso of cursos" (click)="irAEstudiantes(curso)" style="cursor: pointer;">
+      <td>{{ curso.nombre_curso }}</td>
+      <td>{{ curso.nombre_materia }}</td>
+      <td>{{ curso.gestion }}</td>
+    </tr>
+  </tbody>
+</table>

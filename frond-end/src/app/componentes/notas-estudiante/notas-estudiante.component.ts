@@ -2,23 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../servicio/api.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Chart, registerables } from 'chart.js';
-import { ActivatedRoute } from '@angular/router';
-
-
+import { UserService, Usuario } from '../user/autenticacion';
 
 @Component({
   selector: 'app-notas-estudiante',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './hijo-detalle.component.html',
-  styleUrls: ['./hijo-detalle.component.css'],
+  templateUrl: './notas-estudiante.component.html',
+  styleUrls: ['./notas-estudiante.component.css'],
   providers: [DatePipe]
 })
-export class HijoDetalleComponent implements OnInit {
-  estudianteId: number =0;
+export class NotasEstudianteComponent implements OnInit {
   notas: any[] = [];
   asistencia: any[] = [];
   participacion: any[] = [];
+  estudianteId: number = 0; // Para pruebas, luego obtener dinámicamente
   chartNotas: any;
   chartAsistencia: any;
   chartParticipacion: any;
@@ -26,17 +24,17 @@ export class HijoDetalleComponent implements OnInit {
   recomendaciones: any[] = [];
   estudianteNombre: string = '';
 
-
-  constructor(
-    private apiService: ApiService,
-    private datePipe: DatePipe,
-    private route: ActivatedRoute
-  ) {
+  constructor(private apiService: ApiService, private datePipe: DatePipe, private userService: UserService) {
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
-    this.estudianteId = Number(this.route.snapshot.paramMap.get('id')); // Para pruebas, luego obtener dinámicamente
+  const usuario = this.userService.getUsuario();
+    if (usuario) {
+      this.estudianteId = usuario.id;
+      console.log('ID del usuario logueado:', this.estudianteId);
+    // Aquí puedes usar ese ID para cargar datos, redirigir, etc.
+    }
     this.cargarNotas();
     this.cargarAsistencia();
     this.cargarParticipacion();
