@@ -10,10 +10,13 @@
       <button *ngIf="!usuario" routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
         <span class="icon">🔑</span> Login
       </button>
+      <button *ngIf="!usuario" routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+        <span class="icon">👤</span> Inicio
+      </button>
 
       <ng-container *ngIf="usuario">
         <button routerLink="profile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
-          <span class="icon">👤</span> Perfil
+          <span class="icon">👤</span> Inicio
         </button>
         <button *ngIf="usuario?.rol === 'admin'" routerLink="profesores" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">👩‍🏫</span> Docentes
@@ -36,8 +39,26 @@
         <button *ngIf="usuario?.rol === 'admin'" routerLink="horarios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">⏰</span> Horarios
         </button>
+        <button *ngIf="usuario?.rol === 'admin'" routerLink="niveles" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">🏫</span> Niveles
+        </button>
         <button *ngIf="usuario?.rol === 'admin'" routerLink="padres" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
           <span class="icon">👨‍👩‍👧‍👦</span> Padres
+        </button>
+        <button *ngIf="usuario?.rol === 'padre'" routerLink="hijos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">👦👧</span> Hijos
+        </button>
+        <button *ngIf="usuario?.rol === 'admin'" routerLink="registro" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">📝</span> Registro
+        </button>
+        <button *ngIf="usuario?.rol === 'admin'" routerLink="grados" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">👨‍👩‍👧‍👦</span> Grados
+        </button>
+        <button *ngIf="usuario?.rol === 'admin'" routerLink="gestiones" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">👨‍👩‍👧‍👦</span> Gestiones
+        </button>
+        <button *ngIf="usuario?.rol === 'admin'" routerLink="bimestres" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-link" type="button">
+          <span class="icon">👨‍👩‍👧‍👦</span> Bimestres
         </button>
       </ng-container>
 

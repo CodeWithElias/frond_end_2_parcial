@@ -1,0 +1,29 @@
+<div class="container">
+  <h3>Vista Niveles</h3>
+  <button (click)="abrirModalCrear()" style="margin-bottom: 1rem;">Crear Nuevo Nivel</button>
+  <div *ngIf="niveles.length > 0; else noNivelesTemplate" style="width: 100%; max-width: 700px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Nombre</th>
+          <th style="text-align: center;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let nivel of niveles">
+          <td style="text-align: center;">{{ nivel.id }}</td>
+          <td style="text-align: center;">{{ nivel.nombre }}</td>
+          <td style="text-align: center;">
+            <button (click)="mostrarDetalleNivel(nivel.id)">Ver</button>
+            <button (click)="abrirModalEditar(nivel.id)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noNivelesTemplate>
+  <p>No hay niveles disponibles.</p>
+</ng-template>

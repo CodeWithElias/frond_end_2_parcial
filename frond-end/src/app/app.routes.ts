@@ -1,4 +1,11 @@
 import { Routes } from '@angular/router';
+import { RegistroComponent } from './componentes/registro/registro.component';
+import { RegistroAdminComponent } from './componentes/registro/registro-admin.component';
+import { RegistroProfesorComponent } from './componentes/registro/registro-profesor.component';
+import { RegistroEstudianteComponent } from './componentes/registro/registro-estudiante.component';
+import { GradosComponent } from './componentes/grados/grados.component';
+import { GestionesComponent } from './componentes/gestiones/gestiones.component';
+import { BimestresComponent } from './componentes/bimestres/bimestres.component';
 import { ProfileComponent } from './componentes/user/profile.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { DocentesComponent } from './componentes/docentes/docentes.component';
@@ -6,12 +13,24 @@ import { EstudiantesComponent } from './componentes/estudiantes/estudiantes.comp
 import { MateriasComponent } from './componentes/materias/materias.component';
 import { CursosComponent } from './componentes/cursos/cursos.component';
 import { PadresComponent } from './componentes/padres/padres.component';
+import { HijosComponent } from './componentes/hijos/hijos.component';
+import { HijoDetalleComponent } from './componentes/hijos/hijo-detalle.component';
 import { InscripcionesComponent } from './componentes/inscripciones/inscripciones.component';
 import { CursoMateriasComponent } from './componentes/curso-materias/curso-materias.component';
 import { HorariosComponent } from './componentes/horarios/horarios.component';
+import { NivelesComponent } from './componentes/niveles/niveles.component';
+import { RegistroTutorComponent } from './componentes/registro/registro-tutor.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'registro-admin', component: RegistroAdminComponent },
+  { path: 'registro-profesor', component: RegistroProfesorComponent },
+  { path: 'registro-estudiante', component: RegistroEstudianteComponent },
+  {path: 'registro-tutor', component: RegistroTutorComponent},
+  { path: 'grados', component: GradosComponent },
+  { path: 'gestiones', component: GestionesComponent },
+  { path: 'bimestres', component: BimestresComponent },
+  { path: '', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'profesores', component: DocentesComponent },
@@ -21,6 +40,9 @@ export const routes: Routes = [
   { path: 'inscripciones', component: InscripcionesComponent },
   { path: 'curso-materias', component: CursoMateriasComponent },
   { path: 'horarios', component: HorariosComponent },
-  {path: 'padres', component: PadresComponent},
+  { path: 'niveles', component: NivelesComponent },
+  { path: 'padres', component: PadresComponent },
+  { path: 'hijos', component: HijosComponent },
+  { path: 'hijos/:id', component: HijoDetalleComponent },
   { path: '**', redirectTo: '' }
 ]

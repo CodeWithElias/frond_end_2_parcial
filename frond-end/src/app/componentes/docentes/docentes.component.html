@@ -10,6 +10,7 @@
         <th>CI</th>
         <th>Teléfono</th>
         <th>Correo</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,9 @@
         <td>{{ docente.persona.ci }}</td>
         <td>{{ docente.persona.telefono }}</td>
         <td>{{ docente.persona.usuario.correo }}</td>
+        <td>
+          <button (click)="abrirModalEditar(docente)">Editar</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -28,3 +32,130 @@
 <ng-template #noDocentes>
   <p>No hay docentes disponibles.</p>
 </ng-template>
+
+<!-- Modal de edición -->
+<div *ngIf="mostrarModal" class="modal">
+  <div class="modal-content">
+    <h3>Editar Docente</h3>
+    <form (ngSubmit)="guardarCambios()" #formEditar="ngForm">
+      <label>Nombres:
+        <input *ngIf="docenteSeleccionado" [(ngModel)]="docenteSeleccionado.persona.nombres" name="nombres" required />
+      </label>
+      <label>Apellidos:
+        <input *ngIf="docenteSeleccionado" [(ngModel)]="docenteSeleccionado.persona.apellidos" name="apellidos" required />
+      </label>
+      <label>Profesión:
+        <input *ngIf="docenteSeleccionado" [(ngModel)]="docenteSeleccionado.profesion" name="profesion" required />
+      </label>
+      <label>Fecha Contratación:
+        <input *ngIf="docenteSeleccionado" type="date" [(ngModel)]="docenteSeleccionado.fecha_contratacion" name="fecha_contratacion" required />
+      </label>
+      <label>CI:
+        <input *ngIf="docenteSeleccionado" [(ngModel)]="docenteSeleccionado.persona.ci" name="ci" required />
+      </label>
+      <label>Teléfono:
+        <input *ngIf="docenteSeleccionado" [(ngModel)]="docenteSeleccionado.persona.telefono" name="telefono" required />
+      </label>
+      <label>Correo:
+        <input *ngIf="docenteSeleccionado" [(ngModel)]="docenteSeleccionado.persona.usuario.correo" name="correo" required />
+      </label>
+      <button type="submit" [disabled]="formEditar.invalid" class="btn btn-primary">Guardar</button>
+      <button type="button" (click)="cerrarModal()" class="btn btn-secondary">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+<style>
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-in-out;
+  transform: translate(-50%, -50%);
+}
+.modal-content {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  max-height: 500px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease forwards;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  font-size: 1.8rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+  font-size: 1rem;
+}
+.modal-content input {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  transition: border-color 0.3s ease;
+}
+.modal-content input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0,123,255,0.5);
+}
+.btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0.6rem;
+  transition: background-color 0.3s ease;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes slideIn {
+  from {transform: translateY(-20px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+</style>

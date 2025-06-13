@@ -1,0 +1,6 @@
+<h2>Lista de Hijos</h2>
+<ul>
+  <li *ngFor="let hijo of hijos" (click)="goToDetalle(hijo)">
+    {{ hijo.persona.nombres }} {{ hijo.persona.apellidos }}
+  </li>
+</ul>

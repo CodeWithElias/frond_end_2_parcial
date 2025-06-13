@@ -1,0 +1,114 @@
+<div class="container">
+  <h3>Vista Bimestres</h3>
+  <button (click)="abrirModalCrear()" style="margin-bottom: 1rem; margin-right: 1rem;">Crear Nuevo Bimestre</button>
+  <button (click)="abrirModalPorAnio()" style="margin-bottom: 1rem;">Bimestres por Año</button>
+  <div *ngIf="bimestres.length > 0; else noBimestresTemplate" style="width: 100%; max-width: 700px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Nombre</th>
+          <th style="text-align: center;">Fecha Inicio</th>
+          <th style="text-align: center;">Fecha Fin</th>
+          <th style="text-align: center;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bimestre of bimestres">
+          <td style="text-align: center;">{{ bimestre.id }}</td>
+          <td style="text-align: center;">{{ bimestre.nombre }}</td>
+          <td style="text-align: center;">{{ bimestre.fecha_inicio }}</td>
+          <td style="text-align: center;">{{ bimestre.fecha_fin }}</td>
+          <td style="text-align: center;">
+            <button (click)="mostrarDetalleBimestre(bimestre.id)">Ver</button>
+            <button (click)="abrirModalEditar(bimestre.id)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noBimestresTemplate>
+  <p>No hay bimestres disponibles.</p>
+</ng-template>
+
+<!-- Modal Bimestres por Año -->
+<div *ngIf="mostrarModalPorAnio" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('porAnio')">&times;</span>
+    <h3>Bimestres por Año</h3>
+    <label for="anioInput">Año:</label>
+    <input id="anioInput" type="number" [(ngModel)]="anioSeleccionado" name="anioInput" />
+    <button (click)="cargarBimestresPorAnio()">Buscar</button>
+    <div *ngIf="bimestresPorAnio.length > 0; else noBimestresPorAnio">
+      <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th style="text-align: center;">ID</th>
+            <th style="text-align: center;">Nombre</th>
+            <th style="text-align: center;">Fecha Inicio</th>
+            <th style="text-align: center;">Fecha Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bimestre of bimestresPorAnio">
+            <td style="text-align: center;">{{ bimestre.id }}</td>
+            <td style="text-align: center;">{{ bimestre.nombre }}</td>
+            <td style="text-align: center;">{{ bimestre.fecha_inicio }}</td>
+            <td style="text-align: center;">{{ bimestre.fecha_fin }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noBimestresPorAnio>
+      <p>No hay bimestres para el año seleccionado.</p>
+    </ng-template>
+  </div>
+</div>
+
+<!-- Modal Detalle -->
+<div *ngIf="mostrarModalDetalle" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('detalle')">&times;</span>
+    <h3>Detalle de Bimestre</h3>
+    <p><strong>ID:</strong> {{ bimestreSeleccionado?.id }}</p>
+    <p><strong>Nombre:</strong> {{ bimestreSeleccionado?.nombre }}</p>
+    <p><strong>Fecha Inicio:</strong> {{ bimestreSeleccionado?.fecha_inicio }}</p>
+    <p><strong>Fecha Fin:</strong> {{ bimestreSeleccionado?.fecha_fin }}</p>
+  </div>
+</div>
+
+<!-- Modal Crear -->
+<div *ngIf="mostrarModalCrear" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('crear')">&times;</span>
+    <h3>Crear Nuevo Bimestre</h3>
+    <form (ngSubmit)="crearBimestre()">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" [(ngModel)]="nuevoBimestre.nombre" name="nombre" required />
+      <label for="fecha_inicio">Fecha Inicio:</label>
+      <input id="fecha_inicio" type="date" [(ngModel)]="nuevoBimestre.fecha_inicio" name="fecha_inicio" required />
+      <label for="fecha_fin">Fecha Fin:</label>
+      <input id="fecha_fin" type="date" [(ngModel)]="nuevoBimestre.fecha_fin" name="fecha_fin" required />
+      <button type="submit">Crear</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div *ngIf="mostrarModalEditar" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('editar')">&times;</span>
+    <h3>Editar Bimestre</h3>
+    <form (ngSubmit)="actualizarBimestre()">
+      <label for="nombreEditar">Nombre:</label>
+      <input id="nombreEditar" type="text" [(ngModel)]="bimestreSeleccionado.nombre" name="nombreEditar" required />
+      <label for="fecha_inicioEditar">Fecha Inicio:</label>
+      <input id="fecha_inicioEditar" type="date" [(ngModel)]="bimestreSeleccionado.fecha_inicio" name="fecha_inicioEditar" required />
+      <label for="fecha_finEditar">Fecha Fin:</label>
+      <input id="fecha_finEditar" type="date" [(ngModel)]="bimestreSeleccionado.fecha_fin" name="fecha_finEditar" required />
+      <button type="submit">Actualizar</button>
+    </form>
+  </div>
+</div>

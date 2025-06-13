@@ -1,0 +1,75 @@
+<div class="container">
+  <h3>Vista Grados</h3>
+  <button (click)="abrirModalCrear()" style="margin-bottom: 1rem;">Crear Nuevo Grado</button>
+  <div *ngIf="grados.length > 0; else noGradosTemplate" style="width: 100%; max-width: 700px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Nombre</th>
+          <th style="text-align: center;">Nivel</th>
+          <th style="text-align: center;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let grado of grados">
+          <td style="text-align: center;">{{ grado.id }}</td>
+          <td style="text-align: center;">{{ grado.nombre }}</td>
+          <td style="text-align: center;">{{ grado.nivel }}</td>
+          <td style="text-align: center;">
+            <button (click)="mostrarDetalleGrado(grado.id)">Ver</button>
+            <button (click)="abrirModalEditar(grado.id)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noGradosTemplate>
+  <p>No hay grados disponibles.</p>
+</ng-template>
+
+<!-- Modal Detalle -->
+<div *ngIf="mostrarModalDetalle" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('detalle')">&times;</span>
+    <h3>Detalle de Grado</h3>
+    <p><strong>ID:</strong> {{ gradoSeleccionado?.id }}</p>
+    <p><strong>Nombre:</strong> {{ gradoSeleccionado?.nombre }}</p>
+  </div>
+</div>
+
+<!-- Modal Crear -->
+<div *ngIf="mostrarModalCrear" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('crear')">&times;</span>
+    <h3>Crear Nuevo Grado</h3>
+    <form (ngSubmit)="crearGrado()">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" [(ngModel)]="nuevoGrado.nombre" name="nombre" required />
+      <label for="nivel">Nivel:</label>
+      <select id="nivel" [(ngModel)]="nuevoGrado.nivel" name="nivel" required>
+        <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
+      </select>
+      <button type="submit">Crear</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div *ngIf="mostrarModalEditar" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('editar')">&times;</span>
+    <h3>Editar Grado</h3>
+    <form (ngSubmit)="actualizarGrado()">
+      <label for="nombreEditar">Nombre:</label>
+      <input id="nombreEditar" type="text" [(ngModel)]="gradoSeleccionado.nombre" name="nombreEditar" required />
+      <label for="nivelEditar">Nivel:</label>
+      <select id="nivelEditar" [(ngModel)]="gradoSeleccionado.nivel" name="nivelEditar" required>
+        <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
+      </select>
+      <button type="submit">Actualizar</button>
+    </form>
+  </div>
+</div>

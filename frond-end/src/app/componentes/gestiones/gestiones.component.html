@@ -1,0 +1,79 @@
+<div class="container">
+  <h3>Vista Gestiones</h3>
+  <button (click)="abrirModalCrear()" style="margin-bottom: 1rem;">Crear Nueva Gestión</button>
+  <div *ngIf="gestiones.length > 0; else noGestionesTemplate" style="width: 100%; max-width: 700px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Año</th>
+          <th style="text-align: center;">Fecha Inicio</th>
+          <th style="text-align: center;">Fecha Fin</th>
+          <th style="text-align: center;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gestion of gestiones">
+          <td style="text-align: center;">{{ gestion.id }}</td>
+          <td style="text-align: center;">{{ gestion.anio }}</td>
+          <td style="text-align: center;">{{ gestion.fecha_inicio }}</td>
+          <td style="text-align: center;">{{ gestion.fecha_fin }}</td>
+          <td style="text-align: center;">
+            <button (click)="mostrarDetalleGestion(gestion.id)">Ver</button>
+            <button (click)="abrirModalEditar(gestion.id)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noGestionesTemplate>
+  <p>No hay gestiones disponibles.</p>
+</ng-template>
+
+<!-- Modal Detalle -->
+<div *ngIf="mostrarModalDetalle" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('detalle')">&times;</span>
+    <h3>Detalle de Gestión</h3>
+    <p><strong>ID:</strong> {{ gestionSeleccionada?.id }}</p>
+    <p><strong>Año:</strong> {{ gestionSeleccionada?.anio }}</p>
+    <p><strong>Fecha Inicio:</strong> {{ gestionSeleccionada?.fecha_inicio }}</p>
+    <p><strong>Fecha Fin:</strong> {{ gestionSeleccionada?.fecha_fin }}</p>
+  </div>
+</div>
+
+<!-- Modal Crear -->
+<div *ngIf="mostrarModalCrear" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('crear')">&times;</span>
+    <h3>Crear Nueva Gestión</h3>
+    <form (ngSubmit)="crearGestion()">
+      <label for="anio">Año:</label>
+      <input id="anio" type="number" [(ngModel)]="nuevaGestion.anio" name="anio" required />
+      <label for="fecha_inicio">Fecha Inicio:</label>
+      <input id="fecha_inicio" type="date" [(ngModel)]="nuevaGestion.fecha_inicio" name="fecha_inicio" required />
+      <label for="fecha_fin">Fecha Fin:</label>
+      <input id="fecha_fin" type="date" [(ngModel)]="nuevaGestion.fecha_fin" name="fecha_fin" required />
+      <button type="submit">Crear</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div *ngIf="mostrarModalEditar" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('editar')">&times;</span>
+    <h3>Editar Gestión</h3>
+    <form (ngSubmit)="actualizarGestion()">
+      <label for="anioEditar">Año:</label>
+      <input id="anioEditar" type="number" [(ngModel)]="gestionSeleccionada.anio" name="anioEditar" required />
+      <label for="fecha_inicioEditar">Fecha Inicio:</label>
+      <input id="fecha_inicioEditar" type="date" [(ngModel)]="gestionSeleccionada.fecha_inicio" name="fecha_inicioEditar" required />
+      <label for="fecha_finEditar">Fecha Fin:</label>
+      <input id="fecha_finEditar" type="date" [(ngModel)]="gestionSeleccionada.fecha_fin" name="fecha_finEditar" required />
+      <button type="submit">Actualizar</button>
+    </form>
+  </div>
+</div>

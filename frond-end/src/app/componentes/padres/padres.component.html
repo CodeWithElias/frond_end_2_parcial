@@ -10,6 +10,7 @@
         <th>Fecha Nacimiento</th>
         <th>Teléfono</th>
         <th>Correo</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,11 @@
         <td>{{ padre.persona.fecha_nacimiento }}</td>
         <td>{{ padre.persona.telefono }}</td>
         <td>{{ padre.persona.usuario.correo }}</td>
+        <td>
+          <button (click)="abrirModalEditar(padre)">Editar</button>
+          <button (click)="abrirModalHijos(padre)">Ver Hijos</button>
+          <button (click)="abrirModalRelacion(padre)">Agregar Relación</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -28,3 +34,167 @@
 <ng-template #noPadres>
   <p>No hay padres disponibles.</p>
 </ng-template>
+
+<!-- Modal de edición -->
+<div *ngIf="mostrarModal" class="modal">
+  <div class="modal-content">
+    <h3>Editar Padre</h3>
+    <form (ngSubmit)="guardarCambios()" #formEditar="ngForm">
+      <label>CI:
+        <input *ngIf="padreSeleccionado" [(ngModel)]="padreSeleccionado.persona.ci" name="ci" required />
+      </label>
+      <label>Nombres:
+        <input *ngIf="padreSeleccionado" [(ngModel)]="padreSeleccionado.persona.nombres" name="nombres" required />
+      </label>
+      <label>Apellidos:
+        <input *ngIf="padreSeleccionado" [(ngModel)]="padreSeleccionado.persona.apellidos" name="apellidos" required />
+      </label>
+      <label>Género:
+        <input *ngIf="padreSeleccionado" [(ngModel)]="padreSeleccionado.persona.genero" name="genero" required />
+      </label>
+      <label>Fecha Nacimiento:
+        <input *ngIf="padreSeleccionado" type="date" [(ngModel)]="padreSeleccionado.persona.fecha_nacimiento" name="fecha_nacimiento" required />
+      </label>
+      <label>Teléfono:
+        <input *ngIf="padreSeleccionado" [(ngModel)]="padreSeleccionado.persona.telefono" name="telefono" required />
+      </label>
+      <label>Correo:
+        <input *ngIf="padreSeleccionado" [(ngModel)]="padreSeleccionado.persona.usuario.correo" name="correo" required />
+      </label>
+      <button type="submit" [disabled]="formEditar.invalid" class="btn btn-primary">Guardar</button>
+      <button type="button" (click)="cerrarModal()" class="btn btn-secondary">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para mostrar hijos -->
+<div *ngIf="mostrarModalHijos" class="modal">
+  <div class="modal-content">
+    <h3>Hijos del Padre</h3>
+    <ul>
+      <li *ngFor="let hijo of hijos">
+        {{ hijo.persona.nombres }} {{ hijo.persona.apellidos }} - CI: {{ hijo.persona.ci }} - RUDE: {{ hijo.rude }}
+      </li>
+    </ul>
+    <button (click)="cerrarModalHijos()" class="btn btn-secondary">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal para crear relación estudiante-padre -->
+<div *ngIf="mostrarModalRelacion" class="modal">
+  <div class="modal-content">
+    <h3>Agregar Relación Estudiante-Padre</h3>
+    <form (ngSubmit)="crearRelacion()">
+      <label for="estudiante">Seleccionar Estudiante:</label>
+      <select id="estudiante" [(ngModel)]="estudianteSeleccionadoId" name="estudiante" required>
+        <option *ngFor="let estudiante of estudiantes" [value]="estudiante.id">
+          {{ estudiante.persona.nombres }} {{ estudiante.persona.apellidos }} - CI: {{ estudiante.persona.ci }}
+        </option>
+      </select>
+      <label for="parentesco" style="margin-top: 1rem;">Parentesco:</label>
+      <select id="parentesco" [(ngModel)]="parentescoSeleccionado" name="parentesco" required>
+        <option value="tutor">Tutor</option>
+        <option value="otro">Otro</option>
+      </select>
+      <div style="margin-top: 1rem;">
+        <button type="submit" class="btn btn-primary" [disabled]="!estudianteSeleccionadoId || !parentescoSeleccionado">Crear Relación</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrarModalRelacion()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-in-out;
+  transform: translate(-50%, -50%);
+}
+.modal-content {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  max-height: 500px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease forwards;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  font-size: 1.8rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+  font-size: 1rem;
+}
+.modal-content input {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  transition: border-color 0.3s ease;
+}
+.modal-content input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0,123,255,0.5);
+}
+.btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0.6rem;
+  transition: background-color 0.3s ease;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes slideIn {
+  from {transform: translateY(-20px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+</style>

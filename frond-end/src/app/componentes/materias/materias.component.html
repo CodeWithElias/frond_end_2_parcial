@@ -1,22 +1,82 @@
-<h3>Vista Materias</h3>
-<div *ngIf="materias.length > 0; else noMaterias">
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Área</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let materia of materias">
-        <td>{{ materia.id }}</td>
-        <td>{{ materia.nombre }}</td>
-        <td>{{ materia.area }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container">
+  <h3>Vista Materias</h3>
+  <button (click)="abrirModalCrear()">Crear Nueva Materia</button>
+  <div *ngIf="materias.length > 0; else noMaterias">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Área</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let materia of materias">
+          <td>{{ materia.id }}</td>
+          <td>{{ materia.nombre }}</td>
+          <td>{{ materia.area }}</td>
+          <td>
+            <button (click)="mostrarDetalle(materia.id)">Ver</button>
+            <button (click)="abrirModalEditar(materia.id)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noMaterias>
+    <p>No hay materias disponibles.</p>
+  </ng-template>
 </div>
-<ng-template #noMaterias>
-  <p>No hay materias disponibles.</p>
-</ng-template>
+
+<!-- Modal Detalle -->
+<div *ngIf="mostrarModalDetalle" class="modal" style="position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; padding: 1rem;">
+  <div class="modal-content" style="background-color: #fefefe; padding: 2rem; border-radius: 8px; width: 90%; max-width: 700px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); max-height: 80vh; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+    <span class="close" (click)="cerrarModal('detalle')" style="color: #aaa; float: right; font-size: 1.5rem; font-weight: bold; cursor: pointer; margin-bottom: 1rem;">&times;</span>
+    <h3>Detalle de Materia</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Área</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ materiaSeleccionada?.nombre }}</td>
+          <td>{{ materiaSeleccionada?.area }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Crear -->
+<div *ngIf="mostrarModalCrear" class="modal" style="position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; padding: 1rem;">
+  <div class="modal-content" style="background-color: #fefefe; padding: 2rem; border-radius: 8px; width: 90%; max-width: 700px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); max-height: 80vh; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; display: flex; flex-direction: column; gap: 1rem;">
+    <span class="close" (click)="cerrarModal('crear')" style="color: #aaa; align-self: flex-end; font-size: 1.5rem; font-weight: bold; cursor: pointer; margin-bottom: 1rem;">&times;</span>
+    <h3>Crear Nueva Materia</h3>
+    <form (ngSubmit)="crearMateria()" style="display: flex; flex-direction: column; gap: 1rem;">
+      <label style="font-weight: 600; color: #28a745;">Nombre:</label>
+      <input type="text" [(ngModel)]="nuevaMateria.nombre" name="nombre" required style="padding: 0.5rem; border: 1px solid #28a745; border-radius: 4px; font-size: 1rem; box-sizing: border-box;" />
+      <label style="font-weight: 600; color: #28a745;">Área:</label>
+      <input type="text" [(ngModel)]="nuevaMateria.area" name="area" required style="padding: 0.5rem; border: 1px solid #28a745; border-radius: 4px; font-size: 1rem; box-sizing: border-box;" />
+      <button type="submit" style="background-color: #28a745; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: background-color 0.3s ease;">Crear</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div *ngIf="mostrarModalEditar" class="modal" style="position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; padding: 1rem;">
+  <div class="modal-content" style="background-color: #fefefe; padding: 2rem; border-radius: 8px; width: 90%; max-width: 700px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); max-height: 80vh; overflow-y: auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; display: flex; flex-direction: column; gap: 1rem;">
+    <span class="close" (click)="cerrarModal('editar')" style="color: #aaa; align-self: flex-end; font-size: 1.5rem; font-weight: bold; cursor: pointer; margin-bottom: 1rem;">&times;</span>
+    <h3>Editar Materia</h3>
+    <form (ngSubmit)="actualizarMateria()" style="display: flex; flex-direction: column; gap: 1rem;">
+      <label style="font-weight: 600; color: #28a745;">Nombre:</label>
+      <input type="text" [(ngModel)]="materiaSeleccionada.nombre" name="nombre" required style="padding: 0.5rem; border: 1px solid #28a745; border-radius: 4px; font-size: 1rem; box-sizing: border-box;" />
+      <label style="font-weight: 600; color: #28a745;">Área:</label>
+      <input type="text" [(ngModel)]="materiaSeleccionada.area" name="area" required style="padding: 0.5rem; border: 1px solid #28a745; border-radius: 4px; font-size: 1rem; box-sizing: border-box;" />
+      <button type="submit" style="background-color: #28a745; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: background-color 0.3s ease;">Actualizar</button>
+    </form>
+  </div>
+</div>

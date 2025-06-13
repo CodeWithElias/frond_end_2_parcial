@@ -1,0 +1,164 @@
+<div class="login-container">
+  <h2>Registro de Profesor</h2>
+  <form (ngSubmit)="registrar()" #registroForm="ngForm" novalidate>
+    <div>
+      <label for="username">Usuario:</label>
+      <input
+        id="username"
+        type="text"
+        name="username"
+        [(ngModel)]="persona.usuario.username"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.usuario.username" class="error-message">
+        El usuario es obligatorio.
+      </div>
+    </div>
+    <div>
+      <label for="correo">Correo:</label>
+      <input
+        id="correo"
+        type="email"
+        name="correo"
+        [(ngModel)]="persona.usuario.correo"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.usuario.correo" class="error-message">
+        El correo es obligatorio.
+      </div>
+    </div>
+    <div>
+      <label for="password">Contraseña:</label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        [(ngModel)]="persona.usuario.password"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.usuario.password" class="error-message">
+        La contraseña es obligatoria.
+      </div>
+    </div>
+    <div>
+      <label for="ci">CI:</label>
+      <input
+        id="ci"
+        type="text"
+        name="ci"
+        [(ngModel)]="persona.ci"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.ci" class="error-message">
+        La CI es obligatoria.
+      </div>
+    </div>
+    <div>
+      <label for="nombres">Nombres:</label>
+      <input
+        id="nombres"
+        type="text"
+        name="nombres"
+        [(ngModel)]="persona.nombres"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.nombres" class="error-message">
+        Los nombres son obligatorios.
+      </div>
+    </div>
+    <div>
+      <label for="apellidos">Apellidos:</label>
+      <input
+        id="apellidos"
+        type="text"
+        name="apellidos"
+        [(ngModel)]="persona.apellidos"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.apellidos" class="error-message">
+        Los apellidos son obligatorios.
+      </div>
+    </div>
+    <div>
+      <label for="genero">Género:</label>
+      <select
+        id="genero"
+        name="genero"
+        [(ngModel)]="persona.genero"
+        required
+      >
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
+      <div *ngIf="registroForm.submitted && !persona.genero" class="error-message">
+        El género es obligatorio.
+      </div>
+    </div>
+    <div>
+      <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+      <input
+        id="fecha_nacimiento"
+        type="date"
+        name="fecha_nacimiento"
+        [(ngModel)]="persona.fecha_nacimiento"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.fecha_nacimiento" class="error-message">
+        La fecha de nacimiento es obligatoria.
+      </div>
+    </div>
+    <div>
+      <label for="direccion">Dirección:</label>
+      <input
+        id="direccion"
+        type="text"
+        name="direccion"
+        [(ngModel)]="persona.direccion"
+      />
+    </div>
+    <div>
+      <label for="telefono">Teléfono:</label>
+      <input
+        id="telefono"
+        type="text"
+        name="telefono"
+        [(ngModel)]="persona.telefono"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !persona.telefono" class="error-message">
+        El teléfono es obligatorio.
+      </div>
+    </div>
+    <div>
+      <label for="profesion">Profesión:</label>
+      <input
+        id="profesion"
+        type="text"
+        name="profesion"
+        [(ngModel)]="profesion"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !profesion" class="error-message">
+        La profesión es obligatoria.
+      </div>
+    </div>
+    <div>
+      <label for="fecha_contratacion">Fecha de Contratación:</label>
+      <input
+        id="fecha_contratacion"
+        type="date"
+        name="fecha_contratacion"
+        [(ngModel)]="fecha_contratacion"
+        required
+      />
+      <div *ngIf="registroForm.submitted && !fecha_contratacion" class="error-message">
+        La fecha de contratación es obligatoria.
+      </div>
+    </div>
+    <button type="submit" [disabled]="registroForm.invalid">Registrar</button>
+  </form>
+
+  <div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>
+

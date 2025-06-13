@@ -1,0 +1,52 @@
+<div class="registro-container">
+  <h2>Registro</h2>
+  <div class="botones-registro-grid">
+    <a class="btn-registro" routerLink="/registro-admin">Registrar Administrador</a>
+    <a class="btn-registro" routerLink="/registro-profesor">Registrar Profesor</a>
+    <a class="btn-registro" routerLink="/registro-estudiante">Registrar Estudiante</a>
+    <a class="btn-registro" routerLink="/registro-tutor">Registrar Tutor</a>
+  </div>
+</div>
+
+<style>
+  .registro-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .registro-container h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+  .botones-registro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+  }
+  .btn-registro {
+    display: inline-block;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.4);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-registro:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    box-shadow: 0 6px 16px rgba(41, 128, 185, 0.6);
+  }
+</style>

@@ -1,3 +1,23 @@
+<h3>Crear Nuevo Curso</h3>
+<form (ngSubmit)="crearCurso()" #cursoForm="ngForm" class="form-curso">
+  <div class="form-group">
+    <label for="paralelo">Paralelo:</label>
+    <input type="text" id="paralelo" name="paralelo" [(ngModel)]="nuevoCurso.paralelo" required />
+  </div>
+
+  <div class="form-group">
+    <label for="grado">Grado:</label>
+    <input type="text" id="grado" name="grado" [(ngModel)]="nuevoCurso.grado" required />
+  </div>
+
+  <div class="form-group">
+    <label for="gestion">Gestión:</label>
+    <input type="text" id="gestion" name="gestion" [(ngModel)]="nuevoCurso.gestion" required />
+  </div>
+
+  <button type="submit" style="background-color: #28a745; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: background-color 0.3s ease;">Crear Curso</button>
+</form>
+
 <h3>Vista Cursos</h3>
 <div *ngIf="cursos.length > 0; else noCursos">
   <table>
@@ -7,6 +27,7 @@
         <th>Paralelo</th>
         <th>Grado</th>
         <th>Gestión</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +36,11 @@
         <td>{{ curso.paralelo }}</td>
         <td>{{ curso.grado }}</td>
         <td>{{ curso.gestion }}</td>
+        <td>
+          <button (click)="mostrarPlanilla(curso)">Planilla</button>
+          <button (click)="mostrarEstudiantes(curso)">Estudiantes</button>
+          <button (click)="mostrarHorario(curso)">Horario</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -22,3 +48,83 @@
 <ng-template #noCursos>
   <p>No hay cursos disponibles.</p>
 </ng-template>
+
+<!-- Modal Planilla -->
+<div *ngIf="mostrarModalPlanilla" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('planilla')">&times;</span>
+    <h3>Planilla del Curso</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Materia</th>
+          <th>Docente</th>
+          <th>Bimestre</th>
+          <th>Gestión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of planillaData">
+          <td>{{ item.materia }}</td>
+          <td>{{ item.docente }}</td>
+          <td>{{ item.bimestre }}</td>
+          <td>{{ item.gestion }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Estudiantes -->
+<div *ngIf="mostrarModalEstudiantes" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('estudiantes')">&times;</span>
+    <h3>Estudiantes del Curso {{ estudiantesData?.curso?.nombre }}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre Completo</th>
+          <th>CI</th>
+          <th>Fecha Inscripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estudiante of estudiantesData?.estudiantes">
+          <td>{{ estudiante.nombre_completo }}</td>
+          <td>{{ estudiante.ci }}</td>
+          <td>{{ estudiante.fecha_inscripcion }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Horario -->
+<div *ngIf="mostrarModalHorario" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal('horario')">&times;</span>
+    <h3>Horario del Curso {{ horarioData?.curso?.nombre }}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Día Semana</th>
+          <th>Hora Inicio</th>
+          <th>Hora Fin</th>
+          <th>Materia</th>
+          <th>Docente</th>
+          <th>Aula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of horarioData?.horario">
+          <td>{{ h.dia_semana }}</td>
+          <td>{{ h.hora_inicio }}</td>
+          <td>{{ h.hora_fin }}</td>
+          <td>{{ h.materia }}</td>
+          <td>{{ h.docente }}</td>
+          <td>{{ h.aula }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
