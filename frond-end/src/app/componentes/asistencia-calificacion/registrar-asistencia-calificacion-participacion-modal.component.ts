@@ -18,10 +18,10 @@ export class RegistrarAsistenciaCalificacionParticipacionModalComponent {
   @Input() materia: string = '';
   @Input() visible: boolean = false;
   @Output() close = new EventEmitter<void>();
-
-  // Campos para asistencia
-  fechaAsistencia: string = '';
-  estadoAsistencia: string = '';
+  // En tu componente TypeScript
+  //fechaAsistencia: string = new Date().toISOString().split('T')[0];
+  fechaAsistencia: string = new Date().toISOString().split('T')[0];
+  estadoAsistencia: string = 'presente';
   justificacion: string = '';
 
   // Campos para bimestre (único para todo)
